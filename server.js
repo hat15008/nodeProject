@@ -1,19 +1,20 @@
 const express = require('express');
 const app = express();
 const path = require("path");
+require('dotenv').config();
+
+const hoursController = require('./controllers/hoursController.js');
 
 // use port specified by Heroku/server OR use port 5000
 const port = process.env.PORT || 5000;
-
 
 app.use(express.json());                                    // to support JSON-encoded bodies
 app.use(express.urlencoded({ extended: true }));            // to support URL-encoded bodies
 app.use(express.static(path.join(__dirname, "public")));    // makes public a publicly accessable folder
 
-app.get('/list', getList);
-app.get('/worker/:workerId', getTimeSheet);
-
-app.post('/time', addTime);
+app.get('/hours', hoursController.getHours);
+app.post('/time_in', hoursController.postTimeIn);
+app.post('/time_out', hoursController.postTimeOut);
 
 /*
 *   POST the new time instance(clock-in/clock-out)
