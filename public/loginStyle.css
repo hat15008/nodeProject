@@ -16,7 +16,7 @@
 
 .loginBox {
 	width: 320px;
-	height: 420px;
+	height: auto;
 	background: #000000;
 	color: #ffffff;
 	top: 50%;

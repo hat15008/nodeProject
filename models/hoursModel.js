@@ -6,7 +6,7 @@ const db_url = process.env.DATABASE_URL;
 //const pool = new pool({connectionString: db_url});
 
 function getAllHours(callback) {
-    console.log("hoursModel getAllHours()");
+    console.log("hoursModel | getAllHours()");
 
     const sql = "SELECT hoursIn, hoursOut FROM users WHERE username=$1::text";
     var params = [username];

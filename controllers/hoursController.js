@@ -1,7 +1,7 @@
 const hoursModel = require("../models/hoursModel.js");
 
 function getHours(req, res) {
-    console.log('recieved a request for: ' + req.url);
+    console.log('controller | recieved a request for: ' + req.url);
 
     //var movieTitle = req.query.movieTitle;
 
