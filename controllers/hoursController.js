@@ -1,40 +1,67 @@
 const hoursModel = require("../models/hoursModel.js");
 
+/*******************
+* get the total number of hours
+*******************/
 function getHours(req, res) {
-    console.log('controller | recieved a request for: ' + req.url);
+    console.log('hoursController | recieved a request for: ' + req.url);
+    const user = req.session.user
 
-    //var movieTitle = req.query.movieTitle;
+    hoursModel.getAllHours(user, function (error, results) {
+        if (error) {
+            console.log("An error occurred in hoursController");
+            console.log(error);
+            result = { success: false };
+            res.json(result);
 
-    hoursModel.getAllHours(function (error, results) {
-        if (!error)
+        } else {
             res.json(results);
+        }
     });
 }
 
+/*******************
+* add to the total number of hours
+*******************/
 function postTimeIn(req, res) {
-    var timeIn = req.body.timeIn;
+    //const timeIn = req.body.timeIn;
+    const user = req.session.user;
+    var result = { success: false };
 
-    hoursModel.setTimeIn(function (error, results) {
-        if (!error)
-            res.json(results);
+    hoursModel.postTimeIn(user, function (error, results) {
+        if (error) {
+            console.log("An error occurred in the DB Controller");
+            console.log(error);
+            result = { success: false, results };
+            res.json(result);
+
+        } else {
+            console.log("No Errors");
+            result = { success: true, results };
+            res.json(result);
+        }
     });
-
-    console.log('adding time-in: ' + timeIn);
-
-    res.json({success:true});
 }
 
+/*******************
+* post the daily time instance
+*******************/
 function postTimeOut(req, res) {
-    var timeOut = req.body.timeOut;
+    const user = req.session.user;
 
-    hoursModel.setTimeOut(function (error, results) {
-        if (!error)
-            res.json(results);
+    hoursModel.postTimeOut(user, function (error, results) {
+        if (error) {
+            console.log("An error occurred in the DB Controller");
+            console.log(error);
+            result = { success: false };
+            res.json(result);
+
+        } else {
+            console.log("No Errors");
+            result = { success: true };
+            res.json(result);
+        }
     });
-
-    console.log('adding time-out: ' + timeOut);
-
-    res.json({success:true});
 }
 
 module.exports = {

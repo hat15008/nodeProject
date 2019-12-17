@@ -69,8 +69,11 @@ function login() {
     $.post("/login", params, function (result) {
         if (result && result.success) {
             $("#status").text("Successfully logged in.");
+            location.replace("dashboard.html");
         } else {
             $("#status").text("Error logging in.");
+            console.log("ERROR result: ");
+            console.log(result);
         }
     });
 }
@@ -106,7 +109,7 @@ function register() {
     $.post("/register", params, function (result) {
         if (result && result.success) {
             $("#status").text("Successfully registered user.");
-            result.redirect('dashboard.html');
+            location.replace("login.html");
         } else {
             $("#status").text("Error registering new user.");
         }
